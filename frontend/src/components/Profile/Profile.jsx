@@ -1,11 +1,14 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import BioCard from './BioCard';
 import Search from './Seach';
-import { useEffect, useState } from 'react';
+import  FormDialog from '../Form/CreatrUser'; // Import the FormDialog component
+import AddIcon from '@mui/icons-material/Add';
 
 function Profile() {
   const [User, setUser] = useState([]);
   const [error, setError] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false); // State to manage dialog visibility
 
   const getAllData = async () => {
     try {
@@ -39,7 +42,12 @@ function Profile() {
   
   useEffect(() => {
     getAllData();
-  }, []);
+
+  }, [openDialog]);
+
+  const handleCreateUserClick = () => {
+    setOpenDialog(true); // Open the dialog when "Create User" button is clicked
+  };
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -50,8 +58,8 @@ function Profile() {
       <Container sx={{ bgcolor: "" }}>
         <Typography sx={{ mt: 5, mb: 5, fontFamily: "cursive" }} variant='h3'>Users</Typography>
         <Search />
-        </Container>
-        <Container sx={{}}>
+      </Container>
+      <Container sx={{}}>
         <Grid container spacing={4} sx={{display:"flex" ,alignContent:"center",justifyContent:'start' ,pl:2,pr:2}}>
           {User.map((item) => (
             <Grid item key={item._id}>
@@ -59,7 +67,14 @@ function Profile() {
             </Grid>
           ))}
         </Grid>
-        </Container>
+        <div style={{position:'absolute',left:'90%',top:"80%"}}>
+          <Button onClick={handleCreateUserClick} sx={{position:'fixed', borderRadius:"50px"}}>
+            <AddIcon  sx={{fontSize:'50px'}}/>
+          </Button>
+        </div>
+   
+        <FormDialog open={openDialog} onClose={() => setOpenDialog(false)} />
+      </Container>
     </>
   );
 }

@@ -3,8 +3,8 @@ const User = require("../models/User");
 exports.createUser = async (req, res) => {
   try {
     console.log("req body", req.body);
-    const { name, description,imgUrl,instagram,facebook,address } = req.body;
-    if (!name || !description  ) {
+    const { name, description,imgUrl,instagram,facebook,address,latitude,longitude } = req.body;
+    if (!name || !description ,!latitude,!longitude) {
       console.log("not all fields...");
       return res.status(400).json({
         status: 400,
@@ -15,7 +15,8 @@ exports.createUser = async (req, res) => {
       name,
       description,
       imgUrl,
-      instagram,facebook,address 
+      instagram,facebook,address ,
+      latitude,longitude
     });
     return res.status(200).json({
       status: 201,

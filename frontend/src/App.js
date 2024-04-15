@@ -7,7 +7,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<CreateUSer/>}></Route>
+        <Route path="/" element={<Profile/>}></Route>
+        <Route path="/CreateUSer" element={<CreateUSer/>}></Route>
+        <Route path='/GetUserLoction' element={<MapComp/>}></Route>
         
       </Routes>
       

@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import React, { useEffect } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import useLocation from '../Map/useGeoLocation';
 
-export default function FormDialog() {
+function FormDialog({ open, onClose }) {
   const location = useLocation(); // Get user location
-  const [open, setOpen] = useState(false);
   const { register, handleSubmit, setValue } = useForm(); // Include setValue function from useForm
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    onClose();
   };
 
   const createEmployee = async (data) => {
@@ -65,79 +55,76 @@ export default function FormDialog() {
   }, [location, setValue]);
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit(createEmployee)}>
-          <DialogTitle>Creating User</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              name="name"
-              label="User Name"
-              type="text"
-              fullWidth
-              variant="standard"
-              {...register('name')}
-            />
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="description"
-              name="description"
-              label="Description"
-              type="textarea"
-              fullWidth
-              variant="standard"
-              {...register('description')}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="instagram"
-              name="instagram"
-              label="Instagram"
-              type="text"
-              fullWidth
-              variant="standard"
-              {...register('instagram')}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="facebook"
-              name="facebook"
-              label="Facebook"
-              type="text"
-              fullWidth
-              variant="standard"
-              {...register('facebook')}
-            />
-            <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="address"
-              name="address"
-              label="Address"
-              type="text"
-              fullWidth
-              variant="standard"
-              {...register('address')}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Create User</Button>
-          </DialogActions>
-        </form>
-      </Dialog>
-    </React.Fragment>
+    <Dialog open={open} onClose={handleClose}>
+      <form onSubmit={handleSubmit(createEmployee)}>
+        <DialogTitle>Creating User</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="name"
+            label="User Name"
+            type="text"
+            fullWidth
+            variant="standard"
+            {...register('name')}
+          />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="description"
+            name="description"
+            label="Description"
+            type="textarea"
+            fullWidth
+            variant="standard"
+            {...register('description')}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="instagram"
+            name="instagram"
+            label="Instagram"
+            type="text"
+            fullWidth
+            variant="standard"
+            {...register('instagram')}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="facebook"
+            name="facebook"
+            label="Facebook"
+            type="text"
+            fullWidth
+            variant="standard"
+            {...register('facebook')}
+          />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="address"
+            name="address"
+            label="Address"
+            type="text"
+            fullWidth
+            variant="standard"
+            {...register('address')}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button type="submit">Create User</Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 }
+
+export default FormDialog;
