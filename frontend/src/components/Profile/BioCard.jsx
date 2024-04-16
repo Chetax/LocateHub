@@ -10,7 +10,6 @@ import CardOverflow from '@mui/joy/CardOverflow';
 import CardActions from '@mui/joy/CardActions';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import SvgIcon from '@mui/joy/SvgIcon';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -68,8 +67,7 @@ export default function BioCard(data) {
           </IconButton>
            <IconButton size="sm" variant="plain" color="neutral">
   <NavLink to='/map'>
-   
-    <AddLocationAltIcon render={() =>  <Map latitude={latitude} longitude={longitude} />} /> />
+    <AddLocationAltIcon render={() =>  <Map latitude={latitude} longitude={longitude} />} /> 
   </NavLink>
 </IconButton>
 

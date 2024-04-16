@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/system';
 
 import { InputAdornment, TextField } from '@mui/material';
@@ -27,15 +27,21 @@ const StyledInput = styled(TextField)(
   })
 );
 
-const SearchBar = () => {
+const SearchBar = ({user,setuser}) => {
+  useEffect(()=>{},[user])
+  console.log(user);
   return (
     <StyledInput
     sx={{mb:5}}
       placeholder="Search..."
       variant="outlined"
+    type="text"
+    value={user}
+    onChange={(e)=>{setuser(e.target.value)}}
       InputProps={{
         endAdornment: (
-          <InputAdornment position="end">
+          <InputAdornment position="end"  value={"user"}
+          onChange={(e)=>{setuser(e.target.va)}}>
             <SearchIcon sx={{ fontSize: 28,cursor:"pointer" }} />
           </InputAdornment>
         ),

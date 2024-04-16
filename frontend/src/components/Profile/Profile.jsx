@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import BioCard from './BioCard';
-import Search from './Seach';
-import  FormDialog from '../Form/CreatrUser'; // Import the FormDialog component
+import SearchBar from '../Profile/Seach'; // Import the SearchBar component
+import FormDialog from '../Form/CreatrUser'; // Import the FormDialog component
 import AddIcon from '@mui/icons-material/Add';
 
 function Profile() {
-  const [User, setUser] = useState([]);
+  const [users, setUsers] = useState([]); // Renamed User to users for better naming
+  const [findUser, setFindUser] = useState(""); // State for search input
   const [error, setError] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false); // State to manage dialog visibility
+  const [openDialog, setOpenDialog] = useState(false);
 
   const getAllData = async () => {
     try {
-      const getPeople = await fetch(
+      const response = await fetch(
         `http://localhost:4000/user/getallUsers`,
         {
           method: "GET",
@@ -21,32 +22,30 @@ function Profile() {
           },
         }
       );
-  
-      if (!getPeople.ok) {
-        throw new Error(`Failed to fetch data: ${getPeople.statusText}`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
-  
-      const contentType = getPeople.headers.get("content-type");
+
+      const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         throw new Error("Response is not in JSON format");
       }
-  
-      const res = await getPeople.json();
-      setUser(res.data); 
-      console.log(res);
+
+      const data = await response.json();
+      setUsers(data.data);
     } catch (error) {
       setError(error.message);
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     getAllData();
-
-  }, [openDialog]);
+  }, [openDialog, findUser]);
 
   const handleCreateUserClick = () => {
-    setOpenDialog(true); // Open the dialog when "Create User" button is clicked
+    setOpenDialog(true);
   };
 
   if (error) {
@@ -57,22 +56,23 @@ function Profile() {
     <>
       <Container sx={{ bgcolor: "" }}>
         <Typography sx={{ mt: 5, mb: 5, fontFamily: "cursive" }} variant='h3'>Users</Typography>
-        <Search />
+            <SearchBar user={findUser} setuser={setFindUser} />
       </Container>
       <Container sx={{}}>
         <Grid container spacing={4} sx={{display:"flex" ,alignContent:"center",justifyContent:'start' ,pl:2,pr:2}}>
-          {User.map((item) => (
-            <Grid item key={item._id}>
-              <BioCard name={item.name} description={item.description} imgUrl={item.imgUrl} />
-            </Grid>
-          ))}
+          {users
+            .filter((item) => findUser === "" || item.name.toLowerCase().includes(findUser.toLowerCase()))
+            .map((item) => (
+              <Grid item key={item._id}>
+                <BioCard name={item.name} description={item.description} imgUrl={item.imgUrl} />
+              </Grid>
+            ))}
         </Grid>
         <div style={{position:'absolute',left:'90%',top:"80%"}}>
           <Button onClick={handleCreateUserClick} sx={{position:'fixed', borderRadius:"50px"}}>
             <AddIcon  sx={{fontSize:'50px'}}/>
           </Button>
         </div>
-   
         <FormDialog open={openDialog} onClose={() => setOpenDialog(false)} />
       </Container>
     </>
