@@ -14,7 +14,7 @@ function Profile() {
   const getAllData = async () => {
     try {
       const response = await fetch(
-        `bynry-assignment.vercel.app/user/getallUsers`,
+        `https://bynry-assignment.vercel.app/user/getallUsers`,
         {
           method: "GET",
           headers: {
