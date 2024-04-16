@@ -32,7 +32,7 @@ function Profile() {
       }
   
       const res = await getPeople.json();
-      setUser(res.data); // Assuming the data is an array of users
+      setUser(res.data); 
       console.log(res);
     } catch (error) {
       setError(error.message);

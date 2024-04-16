@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Profile/>}></Route>
         <Route path="/CreateUSer" element={<CreateUSer/>}></Route>
-        <Route path='/GetUserLoction' element={<MapComp/>}></Route>
+        <Route path='/map' element={<MapComp/>}></Route>
         
       </Routes>
       

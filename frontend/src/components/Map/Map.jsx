@@ -14,30 +14,21 @@ const markerIcon = new L.Icon({
     popupAnchor: [3, -46],
 });
 
-function MapComp() {
-    const [center, setCenter] = useState({ lat: 13.084622, lng: 80.248357 });
+function MapComp({latitude, longitude}) {
+    const [center, setCenter] = useState({ lat: latitude || 0, lng: longitude || 0 });
     const ZOOM_LEVEL = 5;
     const mapRef = useRef();
 
-    const location = useGeoLocation();
-
     const showMyLocation = () => {
-        if (location.loaded && !location.error && mapRef.current) {
+        if (mapRef.current) {
             const { leafletElement } = mapRef.current;
             if (leafletElement) {
-                leafletElement.flyTo([location.coordinate.lat, location.coordinate.lng], ZOOM_LEVEL, { animate: true });
+                leafletElement.flyTo([latitude, longitude], ZOOM_LEVEL, { animate: true });
             } else {
                 console.error('Leaflet element is not defined.');
             }
-        } else if (location.error) {
-            console.error('Location error:', location.error);
-            alert(location.error.message || 'Unknown error occurred');
-        } else {
-            console.error('Location not loaded.');
-            alert('Location not loaded');
         }
     }
-    
 
     useEffect(() => {
         showMyLocation(); // Trigger the function after the map is initialized
@@ -45,15 +36,16 @@ function MapComp() {
 
     return (
         <Container sx={{ height: "50vh", width: "100%" }}>
-            <MapContainer
-                center={center}
-                zoom={ZOOM_LEVEL}
-                ref={mapRef}
-                style={{ height: "50vh", width: "100%" }} // Set map container dimensions
-            >
+          <MapContainer
+    center={center}
+    zoom={ZOOM_LEVEL}
+    ref={mapRef}
+    style={{ height: "50vh", width: "100%" }} // Set map container dimensions
+>
+
                 <TileLayer url={osm.maptiler.url} attribution={osm.maptiler.attribution} />
-                {location.loaded && !location.error && (
-                    <Marker position={[location.coordinate.lat, location.coordinate.lng]} icon={markerIcon}>
+                {latitude && longitude && ( // Check if latitude and longitude are not undefined
+                    <Marker position={[latitude, longitude]} icon={markerIcon}>
                         <Popup>
                             <p></p>
                         </Popup>
@@ -66,3 +58,5 @@ function MapComp() {
 }
 
 export default MapComp;
+
+
