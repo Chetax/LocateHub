@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import BioCard from './BioCard';
-import SearchBar from '../Profile/Seach'; // Import the SearchBar component
+import SearchBar from './Search'; // Import the SearchBar component
 import FormDialog from '../Form/CreatrUser'; // Import the FormDialog component
 import AddIcon from '@mui/icons-material/Add';
 
@@ -14,7 +14,7 @@ function Profile() {
   const getAllData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/user/getallUsers`,
+        `bynry-assignment.vercel.app/user/getallUsers`,
         {
           method: "GET",
           headers: {

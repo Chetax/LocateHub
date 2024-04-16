@@ -21,7 +21,7 @@ function FormDialog({ open, onClose }) {
 
     try {
       const savedUserResponse = await fetch(
-        'http://localhost:4000/user/createUser',
+        'bynry-assignment.vercel.app/user/createUser',
         {
           method: 'POST',
           headers: {
