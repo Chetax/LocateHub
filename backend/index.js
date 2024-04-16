@@ -11,6 +11,14 @@ app.use(
     origin: "*",
   })
 );
+app.use(cors(
+  {
+    origin:["https://deploy.vercel.app"],
+    method:['POST','GET'],
+    credentials:true,
+  }
+))
+
 // Middleware
 app.use(express.json());
 

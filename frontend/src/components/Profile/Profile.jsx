@@ -64,7 +64,7 @@ function Profile() {
             .filter((item) => findUser === "" || item.name.toLowerCase().includes(findUser.toLowerCase()))
             .map((item) => (
               <Grid item key={item._id}>
-                <BioCard name={item.name} description={item.description} imgUrl={item.imgUrl} />
+                <BioCard name={item.name} description={item.description} imgUrl={item.imgUrl} instagram={item.instagram} facebook={item.facebook} longitude={item.latitude}  latitude={item.longitude}/>
               </Grid>
             ))}
         </Grid>

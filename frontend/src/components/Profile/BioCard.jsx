@@ -15,13 +15,13 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import Map from  '../Map/Map';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function BioCard(data) {
   
-  const {name,description,imgUrl,latitude,longitude}=data;
+  const {name, description, imgUrl, latitude, longitude, instagram, facebook} = data;
+  
   return (
-
     <Card
       sx={{
         width: 250,
@@ -56,21 +56,24 @@ export default function BioCard(data) {
             '& > button': { borderRadius: '2rem' },
           }}
         >
+          <a href={facebook} target="_blank" rel="noopener noreferrer">
+            <IconButton size="sm" variant="plain" color="neutral">
+              <FacebookIcon />
+            </IconButton>
+          </a>
+          <a href={instagram} target="_blank" rel="noopener noreferrer">
+            <IconButton size="sm" variant="plain" color="neutral">
+              <InstagramIcon />
+            </IconButton>
+          </a>
           <IconButton size="sm" variant="plain" color="neutral">
-    <FacebookIcon/>
+            <TwitterIcon />
           </IconButton>
           <IconButton size="sm" variant="plain" color="neutral">
-          <InstagramIcon/>
+            <NavLink to='/map'>
+              <AddLocationAltIcon render={() =>  <Map latitude={latitude} longitude={longitude} />} /> 
+            </NavLink>
           </IconButton>
-          <IconButton size="sm" variant="plain" color="neutral">
-          <TwitterIcon/>
-          </IconButton>
-           <IconButton size="sm" variant="plain" color="neutral">
-  <NavLink to='/map'>
-    <AddLocationAltIcon render={() =>  <Map latitude={latitude} longitude={longitude} />} /> 
-  </NavLink>
-</IconButton>
-
         </Box>
       </CardContent>
       <CardOverflow sx={{ bgcolor: 'background.level1' }}>
