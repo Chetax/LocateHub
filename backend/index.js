@@ -13,7 +13,7 @@ app.use(
 );
 app.use(cors(
   {
-    origin:["https://deploy.vercel.app"],
+    origin:["https://bynry-assignment.vercel.app/"],
     method:['POST','GET'],
     credentials:true,
   }
