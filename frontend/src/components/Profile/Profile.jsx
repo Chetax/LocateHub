@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import BioCard from './BioCard';
-import SearchBar from './Search'; // Import the SearchBar component
+import SearchBar from './Seach'; // Import the SearchBar component
 import FormDialog from '../Form/CreatrUser'; // Import the FormDialog component
 import AddIcon from '@mui/icons-material/Add';
 
