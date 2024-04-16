@@ -1,2 +1,3 @@
 # Bynry-Assignment
-Frontend Internship Coding Round :  Bynry
+# [Live Preview](https://bynry-assignment-idk4.vercel.app/)
+Frontend Internship Coding Round :  
