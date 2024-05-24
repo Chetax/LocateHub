@@ -26,8 +26,14 @@
    ```bash
    cd LocateHub
    
-3. Install the dependencies
+3. Install the dependencies for frontend 
    ```bash
+   cd frontend
+   npm install
+   
+3. Install the dependencies for backend 
+   ```bash
+   cd backend
    npm install
 
 ## Usage
